@@ -26,4 +26,14 @@ public class TestController {
         testService.testV3(id, number);
         return "testV3";
     }
+    @PostMapping(path = "/v4")
+    public String testV4(Integer id, Integer number) {
+        testService.testV4(id, number);
+        return "testV4";
+    }
+    @PostMapping(path = "/v5")
+    public String testV5(Integer id, Integer number) {
+        testService.testV5(id, number);
+        return "testV5";
+    }
 }
