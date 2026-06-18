@@ -2,7 +2,7 @@ package com.example.servicelock.util;
 
 
 
-import com.example.servicelock.LockInfoType;
+import com.example.servicelock.constant.LockInfoType;
 import com.example.servicelock.enums.LockType;
 import com.example.servicelock.factory.LockInfoHandleFactory;
 import com.example.servicelock.factory.ServiceLockFactory;

@@ -1,7 +1,7 @@
 package com.example.servicelock.config;
 
 
-import com.example.servicelock.LockInfoType;
+import com.example.servicelock.constant.LockInfoType;
 import com.example.servicelock.aspect.ServiceLockAspect;
 import com.example.servicelock.core.LockManager;
 import com.example.servicelock.factory.LockInfoHandleFactory;
@@ -13,9 +13,7 @@ import org.redisson.api.RedissonClient;
 import org.springframework.context.annotation.Bean;
 
 /**
- * @program: 极度真实还原大麦网高并发实战项目。 添加 阿星不是程序员 微信，添加时备注 大麦 来获取项目的完整资料
- * @description: 分布式锁 配置
- * @author: 阿星不是程序员
+ * 分布式锁 配置
  **/
 public class ServiceLockAutoConfiguration {
 
