@@ -1,0 +1,2 @@
+com.example.servicelock.config.RedissonCommonAutoConfiguration
+com.example.servicelock.config.ServiceLockAutoConfiguration
