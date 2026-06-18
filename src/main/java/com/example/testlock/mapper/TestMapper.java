@@ -1,7 +1,7 @@
-package com.example.mapper;
+package com.example.testlock.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.pojo.Test;
+import com.example.testlock.pojo.Test;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

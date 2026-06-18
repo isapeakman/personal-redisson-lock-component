@@ -1,4 +1,4 @@
-package com.example.annotation;
+package com.example.testlock.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,5 +7,5 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MyLock {
+public @interface TestLock {
 }

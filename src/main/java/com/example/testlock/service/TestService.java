@@ -1,8 +1,4 @@
-package com.example.service;
-
-import com.example.annotation.MyLock;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+package com.example.testlock.service;
 
 
 public interface TestService {

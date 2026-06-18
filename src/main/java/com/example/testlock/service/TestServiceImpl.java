@@ -1,8 +1,8 @@
-package com.example.service;
+package com.example.testlock.service;
 
-import com.example.annotation.MyLock;
-import com.example.mapper.TestMapper;
-import com.example.pojo.Test;
+import com.example.testlock.annotation.TestLock;
+import com.example.testlock.mapper.TestMapper;
+import com.example.testlock.pojo.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,7 +81,7 @@ public class TestServiceImpl implements TestService {
      * 切面锁(编程式事务)
      */
     @Override
-    @MyLock
+    @TestLock
     public void testV4(Integer id, Integer number) {
         // 编程式事务
         transactionTemplate.execute(status -> {
@@ -97,7 +97,7 @@ public class TestServiceImpl implements TestService {
      * 切面锁(声明式事务)
      */
     @Override
-    @MyLock
+    @TestLock
     @Transactional
     public void testV5(Integer id, Integer number) {
         Test test = testMapper.selectById(id);

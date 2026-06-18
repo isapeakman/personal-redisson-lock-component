@@ -1,6 +1,6 @@
-package com.example.controller;
+package com.example.testlock.controller;
 
-import com.example.service.TestService;
+import com.example.testlock.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
