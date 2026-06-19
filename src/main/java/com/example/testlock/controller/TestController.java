@@ -1,5 +1,6 @@
 package com.example.testlock.controller;
 
+import com.example.testlock.pojo.Test;
 import com.example.testlock.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,5 +36,15 @@ public class TestController {
     public String testV5(Integer id, Integer number) {
         testService.testV5(id, number);
         return "testV5";
+    }
+    @PostMapping(path = "/v6")
+    public String testV6(Integer id, Integer number) {
+        testService.testV6(id, number);
+        return "testV6";
+    }
+    @PostMapping(path = "/v7")
+    public String testV7(Integer id, Integer number) {
+        testService.testV7(new Test(id,number));
+        return "testV7";
     }
 }

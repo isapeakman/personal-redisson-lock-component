@@ -21,6 +21,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
+import static com.example.servicelock.constant.LockInfoType.SERVICE_LOCK;
+
 /**
  * 分布式锁 切面
  **/
@@ -33,7 +35,6 @@ public class ServiceLockAspect {
     private final LockInfoHandleFactory lockInfoHandleFactory;
     
     private final ServiceLockFactory serviceLockFactory;
-    public static final String SERVICE_LOCK = "service_lock";
     
 
     @Around("@annotation(servicelock)")
@@ -80,28 +81,43 @@ public class ServiceLockAspect {
         }
     }
 
+    /**
+     * 处理自定义锁超时策略的方法
+     * @param customLockTimeoutStrategy 自定义锁超时处理策略的方法名
+     * @param joinPoint 切入点对象，用于获取目标方法、参数等信息
+     * @return 调用自定义策略方法后的返回结果
+     */
     public Object handleCustomLockTimeoutStrategy(String customLockTimeoutStrategy,JoinPoint joinPoint) {
-        // prepare invocation context
+        // 获取当前调用的方法对象
         Method currentMethod = ((MethodSignature) joinPoint.getSignature()).getMethod();
+        // 获取目标对象
         Object target = joinPoint.getTarget();
+        // 声明一个用于处理自定义锁超时策略的方法对象，初始值为null
         Method handleMethod = null;
         try {
+            // 获取目标类中声明的指定名称的方法，参数类型与当前方法相同
             handleMethod = target.getClass().getDeclaredMethod(customLockTimeoutStrategy, currentMethod.getParameterTypes());
+            // 设置该方法为可访问，即使它是私有的
             handleMethod.setAccessible(true);
         } catch (NoSuchMethodException e) {
+            // 如果找不到指定的方法，抛出运行时异常，提示非法的注解参数
             throw new RuntimeException("Illegal annotation param customLockTimeoutStrategy :" + customLockTimeoutStrategy,e);
         }
+        // 获取方法的参数列表
         Object[] args = joinPoint.getArgs();
 
-        // invoke
         Object result;
         try {
+            // 使用目标对象和参数列表调用处理方法
             result = handleMethod.invoke(target, args);
         } catch (IllegalAccessException e) {
+            // 如果无法访问方法，抛出运行时异常
             throw new RuntimeException("Fail to illegal access custom lock timeout handler: " + customLockTimeoutStrategy ,e);
         } catch (InvocationTargetException e) {
+            // 如果方法调用抛出异常，抛出运行时异常
             throw new RuntimeException("Fail to invoke custom lock timeout handler: " + customLockTimeoutStrategy ,e);
         }
+        // 返回方法调用的结果
         return result;
     }
 }

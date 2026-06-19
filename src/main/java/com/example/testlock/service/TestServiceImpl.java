@@ -1,5 +1,7 @@
 package com.example.testlock.service;
 
+import com.example.servicelock.annotation.ServiceLock;
+import com.example.servicelock.enums.LockType;
 import com.example.testlock.annotation.TestLock;
 import com.example.testlock.mapper.TestMapper;
 import com.example.testlock.pojo.Test;
@@ -103,6 +105,29 @@ public class TestServiceImpl implements TestService {
         Test test = testMapper.selectById(id);
         Integer originalNumber = test.getNumber();
         test.setNumber(originalNumber + number);
+        testMapper.updateById(test);
+        System.out.println("更新成功" + originalNumber + "->" + test.getNumber());
+    }
+    /**
+     * 切面分布式锁(声明式事务)
+     */
+    @Override
+    @ServiceLock(lockType = LockType.Reentrant,name = "test", keys = {"#id","#number"})
+    @Transactional
+    public void testV6(Integer id, Integer number) {
+        Test test = testMapper.selectById(id);
+        Integer originalNumber = test.getNumber();
+        test.setNumber(originalNumber + number);
+        testMapper.updateById(test);
+        System.out.println("更新成功" + originalNumber + "->" + test.getNumber());
+    }
+    @Override
+    @ServiceLock(lockType = LockType.Reentrant,name = "test", keys = {"#testDto.id","#testDto.number"})
+    @Transactional
+    public void testV7(Test testDto) {
+        Test test = testMapper.selectById(testDto.getId());
+        Integer originalNumber = test.getNumber();
+        test.setNumber(originalNumber + testDto.getNumber());
         testMapper.updateById(test);
         System.out.println("更新成功" + originalNumber + "->" + test.getNumber());
     }

@@ -4,6 +4,7 @@ package com.example.servicelock.config;
 import com.example.servicelock.constant.LockInfoType;
 import com.example.servicelock.aspect.ServiceLockAspect;
 import com.example.servicelock.core.LockManager;
+import com.example.servicelock.core.SpringUtil;
 import com.example.servicelock.factory.LockInfoHandleFactory;
 import com.example.servicelock.factory.ServiceLockFactory;
 import com.example.servicelock.info.LockInfoHandle;

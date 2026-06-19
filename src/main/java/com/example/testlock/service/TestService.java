@@ -1,6 +1,11 @@
 package com.example.testlock.service;
 
 
+import com.example.servicelock.annotation.ServiceLock;
+import com.example.servicelock.enums.LockType;
+import com.example.testlock.pojo.Test;
+import org.springframework.transaction.annotation.Transactional;
+
 public interface TestService {
     /**
      * 事务()
@@ -26,4 +31,12 @@ public interface TestService {
      * 切面锁(声明式事务)
      */
     void testV5(Integer id, Integer number);
+
+    @ServiceLock(lockType = LockType.Reentrant,name = "test", keys = {"id","number"})
+    @Transactional
+    void testV6(Integer id, Integer number);
+
+    @ServiceLock(lockType = LockType.Reentrant,name = "test", keys = {"#testDto.id","#testDto.number"})
+    @Transactional
+    void testV7(Test testDto);
 }
